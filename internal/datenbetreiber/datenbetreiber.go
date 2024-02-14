@@ -12,6 +12,14 @@ const ANZAHL_ZEILEN int = 9275
 const DATEINAME string = "assets/data.txt"
 const OFFSET int = 600 //Größe des größten string in der Datei
 
+type DatenbetreiberTyp uint8
+
+const (
+	ZUFFALIG DatenbetreiberTyp = iota
+	NUMMER
+	REICHWEITE
+)
+
 // Datenbetreiber / Schnittstelle, die angibt, wie ein Datenbetreiber mit Daten umgehen muss.
 type Datenbetreiber interface {
 
@@ -32,7 +40,6 @@ func LeseZeile(zeilennummer int, datei *os.File) pkg.Paar[string, string] {
 	}
 
 	var zeile string
-	// Read 601 characters from the line
 	buffer := make([]byte, OFFSET)
 	n, err := io.ReadFull(datei, buffer)
 
